@@ -5,5 +5,5 @@
   vars:
     download_url: java_download_url
     download_folder: /opt
-    java_name: "{{{{download_folder}}/jdk1.8.0_05}}"
-    java_archive: "{{download_folder}}/jdk-8u5-linux-x64.tar.gz"
+    java_name: "{{{{download_folder}}/jdk-8u131-linux-x64.tar.gz}}"
+    java_archive: "{{download_folder}}/jdk-8u131-linux-x64.tar.gz"
