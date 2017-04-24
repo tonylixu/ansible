@@ -1,5 +1,5 @@
 ---
-- hosts: artifactory_server
+- hosts: java_host
   remote_user:
   sudo: yes
   vars:
