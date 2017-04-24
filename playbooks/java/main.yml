@@ -5,7 +5,8 @@
   vars:
     download_url: java_download_url
     download_folder: /opt
-    java_name: "{{download_folder}}/jdk-8u131"
+    install_folder: /usr/lib/jvm
+    java_name: "{{install_folder}}/jdk1.8.0_131"
     java_archive: "{{download_folder}}/jdk-8u131-linux-x64.tar.gz"
 
   tasks:
@@ -13,19 +14,19 @@
     command: "wget -q -O {{java_archive}} {{download_url}} creates={{java_archive}}"
 
   - name: Unpack archive
-    command: "tar -xzf {{java_archive}} -C {{download_folder}} creates={{java_name}}"
+    command: "tar -xzf {{java_archive}} -C {{install_folder}}"
 
   - name: Fix ownership
     file: state=directory path={{java_name}} owner=root group=root recurse=yes
 
   - name: Make Java available for system
-    command: 'alternatives --install "/usr/bin/java" "java" "{{java_name}}/bin/java" 1'
+    command: 'alternatives --install "/usr/bin/java" "java" "{{java_name}}/bin/java" 2000'
 
   - name: Make jar available for system
-    command: 'alternatives --install "/usr/bin/jar" "jar" "{{java_name}}/bin/jar" 1'
+    command: 'alternatives --install "/usr/bin/jar" "jar" "{{java_name}}/bin/jar" 2000'
 
   - name: Make javac available for system
-    command: 'alternatives --install "/usr/bin/javac" "javac" "{{java_name}}/bin/javac" 1'
+    command: 'alternatives --install "/usr/bin/javac" "javac" "{{java_name}}/bin/javac" 2000'
 
   - name: Clean up
-    command: state=absent path={{java_archive}}
+    file: state=absent path={{java_archive}}
