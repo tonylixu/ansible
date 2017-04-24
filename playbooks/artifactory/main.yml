@@ -1,5 +1,5 @@
 ---
-# This playbook deploys artifactory!
+# This playbook deploys Jfrog Artifactory!
 
 - hosts: artifactory
   vars_files:
