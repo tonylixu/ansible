@@ -1,0 +1,6 @@
+---
+# This playbook deploys artifactory!
+
+- hosts: artifactory
+  vars_files:
+    - vars/main.yml
