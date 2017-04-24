@@ -1,0 +1,28 @@
+global_user: root
+global_use_sudo: False
+global_update_apt_cache: True
+
+# The following variable definitions need to be updated!
+artifactory_port: 8080
+artifactory_webserver: False
+artifactory_dir: /srv/artifactory
+artifactory_zip_dir: $artifactory_dir/zip
+artifactory_zip_file_name: artifactory-3.0.3
+artifactory_version_dir: $artifactory_dir/$artifactory_zip_file_name 
+artifactory_zip_file: $artifactory_zip_file_name.zip
+artifactory_zip_file_path: $artifactory_zip_dir/$artifactory_zip_file
+artifactory_zip_url: http://dl.bintray.com/content/jfrog/artifactory/$artifactory_zip_file
+
+artifactory_home: $artifactory_version_dir
+artifactory_user: artifactory
+artifactory_java_home: /usr/lib/jvm/java-7-openjdk-amd64
+artifactory_tomcat_home: $artifactory_home/tomcat
+
+# Warning - Be careful changing the settings below:
+#
+# This is used to store files that indicate that an operation has been run. Note that if you change this after you have
+# run the script, you may clobber your previous install and/or other bad things. I do not know if if /etc/ansible is
+# the best place to put these files but I wanted to avoid home directories in case the user that runs ansible ever changes.
+ansible_done_dir: /etc/ansible/.done
+
+artifactory_done_dir: $ansible_done_dir/artifactory
