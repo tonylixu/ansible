@@ -2,5 +2,7 @@
 # This playbook deploys JFrog Mission Control!
 
 - hosts: mission_control
+  remote_user:
+  sudo: yes
   vars_files:
     - vars/main.yml
