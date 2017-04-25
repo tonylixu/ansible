@@ -3,7 +3,6 @@
 
 - hosts: mission_control
   remote_user:
-  sudo: yes
   vars_files:
     - vars/main.yml
 
@@ -13,7 +12,12 @@
       register: rpm_check
       failed_when: mission_contorl
 
+    - name: Download JFrog Mission Control
+      comamnd: "wget -q -O {{mc_archive}} {{download_url}} creates={{mc_archive}}"
+
     - name: Install Mission Control through rpm
-      command: "rpm -ihv jfrog-mission-control-{{mc_version}}.rpm"
+      command: "rpm -ihv {{mc_archive}}"
+      become: true
+      become_method: sudo
       # rpm_check.rc is 0 if installed
       when: rpm_check.rc == 1
