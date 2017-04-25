@@ -8,16 +8,26 @@
 
   tasks:
     - name: Check if Mission Control is installed
-      command: rpm -q jfrog-mission-control
+      command: "rpm -q jfrog-mission-control"
+      # Always run in normal mode
+      check_mode: no
       register: rpm_check
-      failed_when: mission_contorl
+      ignore_errors: true
+      changed_when: no
+      failed_when: rpm_check.rc > 1
+
 
     - name: Download JFrog Mission Control
-      comamnd: "wget -q -O {{mc_archive}} {{download_url}} creates={{mc_archive}}"
+      command: "wget -q -O {{mc_archive}} {{download_url}} creates={{mc_archive}}"
+      # Download JFrog Mission Control if not installed yet
+      when: rpm_check.rc != 0
 
     - name: Install Mission Control through rpm
       command: "rpm -ihv {{mc_archive}}"
       become: true
       become_method: sudo
       # rpm_check.rc is 0 if installed
-      when: rpm_check.rc == 1
+      when: rpm_check.rc != 0
+
+    - name: Clean up
+      file: state=absent path={{mc_archive}}
