@@ -6,3 +6,14 @@
   sudo: yes
   vars_files:
     - vars/main.yml
+
+  tasks:
+    - name: Check if Mission Control is installed
+      command: rpm -q jfrog-mission-control
+      register: rpm_check
+      failed_when: mission_contorl
+
+    - name: Install Mission Control through rpm
+      command: "rpm -ihv jfrog-mission-control-{{mc_version}}.rpm"
+      # rpm_check.rc is 0 if installed
+      when: rpm_check.rc == 1
