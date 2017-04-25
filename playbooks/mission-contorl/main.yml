@@ -12,7 +12,7 @@
       # Always run in normal mode
       check_mode: no
       register: rpm_check
-      ignore_errors: true
+      # Force the annoying change message
       changed_when: no
       failed_when: rpm_check.rc > 1
 
