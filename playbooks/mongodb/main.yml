@@ -1,0 +1,10 @@
+---
+# This playbook deploys mongodb to CentOS 7
+
+- hosts: mongodb_host
+
+  tasks:
+    - name: Add MongoDB yum repo file
+      template: src=mongo_repo.j2 dest=/etc/yum.repos.d/mongodb.repo
+      tags: mongodb
+
