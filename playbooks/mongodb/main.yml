@@ -7,7 +7,7 @@
 
   tasks:
     - name: Check if MongoDB is installed
-      command: "rpm -q mongodb"
+      command: "rpm -q mongodb-org-server"
       # Always run in normal mode
       check_mode: no
       register: rpm_check
