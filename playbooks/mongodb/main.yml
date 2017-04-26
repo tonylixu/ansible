@@ -1,6 +1,7 @@
 ---
 # This playbook deploys mongodb to CentOS 7
 # Reference: https://docs.mongodb.com/manual/mongo/
+# https://github.com/nodesource/distributions
 
 - hosts: mongodb_host
   vars_files:
