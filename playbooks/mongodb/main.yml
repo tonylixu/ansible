@@ -2,6 +2,8 @@
 # This playbook deploys mongodb to CentOS 7
 
 - hosts: mongodb_host
+  vars_files:
+    - vars/main.yml
 
   tasks:
     - name: Check if MongoDB is installed
