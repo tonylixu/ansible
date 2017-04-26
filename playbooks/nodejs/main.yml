@@ -1,0 +1,27 @@
+---
+# This playbook deploys nodejs CentOS 7
+# Source https://github.com/geerlingguy/ansible-role-nodejs/blob/master/tasks/setup-RedHat.yml
+
+- hosts: nodejs_host
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+    - name: Check if nodejs is installed
+      command: "npm -version"
+      # Always run in normal mode
+      check_mode: no
+      register: rpm_check
+      # Force the annoying change message to go away
+      changed_when: no
+      ignore_errors: yes
+
+    - name: Install Node.js repo
+      shell: "curl -sL https://rpm.nodesource.com/setup_6.x | bash -"
+      when: rpm_check.rc != 0
+
+    - name: Install nodeJs
+      # Install nodejs from epel repo
+      yum: name=nodejs state=present
+      tags: nodejs
+      when: rpm_check.rc != 0
