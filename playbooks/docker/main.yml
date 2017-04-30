@@ -1,0 +1,4 @@
+---
+# # This playbook deploys mongodb to CentOS 7 /Red Hat 7
+# Reference: https://github.com/Vinelab/ansible-docker.git
+- hosts: docker-host
