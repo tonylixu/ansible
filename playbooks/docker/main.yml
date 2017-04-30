@@ -18,7 +18,7 @@
       tag: docker
 
     - name: Set up the Docker CE repository
-      comamnd: {{item}}
+      comamnd: "{{ item }}"
       with_items:
-        - yum-config-manager --add-repo {{docker_repo}}
-        - yum makecache fast
+        - "yum-config-manager --add-repo {{docker_repo}}"
+        - 'yum makecache fast'
