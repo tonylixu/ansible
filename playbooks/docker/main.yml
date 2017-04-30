@@ -15,10 +15,10 @@
 
     - name: Install yum-utils
       yum: name=yum-utils state=present
-      tag: docker
+      tags: docker
 
     - name: Set up the Docker CE repository
-      comamnd: "{{ item }}"
+      command: "{{ item }}"
       with_items:
         - "yum-config-manager --add-repo {{docker_repo}}"
         - 'yum makecache fast'
