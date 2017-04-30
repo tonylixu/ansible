@@ -2,3 +2,13 @@
 # # This playbook deploys mongodb to CentOS 7 /Red Hat 7
 # Reference: https://github.com/Vinelab/ansible-docker.git
 - hosts: docker-host
+
+  tasks:
+    - name: Remove old versions of Docker
+      yum: pkg={{item}} state=absent
+      wuth_items:
+        - docker
+        - docker-common
+        - container-selinux
+        - docker-selinux
+        - docker-engine
