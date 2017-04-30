@@ -12,3 +12,7 @@
         - container-selinux
         - docker-selinux
         - docker-engine
+
+    - name: Install yum-utils
+      yum: name=yum-utils state=present
+      tag: docker
