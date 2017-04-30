@@ -1,0 +1,47 @@
+---
+# # This playbook deploys mongodb to CentOS 7 /Red Hat 7
+# Reference: https://github.com/Vinelab/ansible-docker.git
+- hosts: docker-host
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+    - name: Check if docker-ce is installed
+      command: "rpm -q docker-ce"
+      # Always run in normal mode
+      check_mode: no
+      register: rpm_check
+      # Force the annoying change message to go away
+      changed_when: no
+      failed_when: rpm_check.rc > 1
+
+    - name: Remove old versions of Docker
+      yum: pkg={{item}} state=absent
+      with_items:
+        - docker
+        - docker-common
+        - container-selinux
+        - docker-selinux
+        - docker-engine
+
+    - name: Install yum-utils
+      yum: name=yum-utils state=present
+      tags: docker
+      when: rpm_check.rc != 0
+
+    - name: Set up the Docker CE repository
+      command: "{{ item }}"
+      with_items:
+        - "yum-config-manager --add-repo {{docker_repo}}"
+        - 'yum makecache fast'
+      when: rpm_check.rc != 0
+
+    - name: Install latest version of docker CE
+      yum: name=docker-ce state=present
+      tags: docker
+      when: rpm_check.rc != 0
+
+    - name: Start docker
+      command: systemctl start docker
+      tags: docker
+      when: rpm_check.rc != 0
