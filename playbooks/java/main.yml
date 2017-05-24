@@ -1,6 +1,6 @@
 ---
 - hosts: target_host
-  become_user: tqgf87
+  become_user: remote_user
   become_method: sudo
   vars:
     download_url: java_download_url
