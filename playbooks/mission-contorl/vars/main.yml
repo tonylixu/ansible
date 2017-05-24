@@ -1,4 +1,4 @@
 download_url: mission_control_download_url
 download_folder: /opt
-mc_archive: "{{download_folder}}/jfrog-mission-control-1.10.rpm"
-mc_version: 1.10
+mc_archive: "{{download_folder}}/jfrog-mission-control-1.10.1.rpm"
+mc_version: 1.10.1
