@@ -1,0 +1,4 @@
+download_url: artifactory_download_url
+download_folder: /opt
+mc_archive: "{{download_folder}}/jfrog-artifactory-pro-5.3.0.rpm"
+mc_version: 5.3.0
