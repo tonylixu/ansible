@@ -1,15 +1,14 @@
 ---
 # This playbook deploys JFrog Artifactory!
 
-- hosts: target_server (please change)
-  become_user: remote_user (please change)
-  become_method: sudo
+- hosts: target_host
+  become_user: target_user
   vars_files:
     - vars/main.yml
 
   tasks:
     - name: Check of Artifactory is installed
-      command: "rpm -q jfrog-artifactory"
+      command: "rpm -q jfrog-artifactory-pro"
       # Always run in normal mode
       check_mode: no
       register: rpm_check
@@ -23,9 +22,7 @@
       when: rpm_check.rc != 0
 
     - name: Install Artifactory through rpm
-      command: "rpm -ihv {{artifactory_archive}}"
-      become: true
-      become_method: sudo
+      command: "sudo rpm -ihv {{artifactory_archive}}"
       # rpm_check.rc is 0 if installed
       when: rpm_check.rc != 0
 
