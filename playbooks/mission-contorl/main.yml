@@ -1,8 +1,8 @@
 ---
 # This playbook deploys JFrog Mission Control!
 
-- hosts: mission_control
-  remote_user:
+- hosts: taget_host
+  remote_user: taget_user
   vars_files:
     - vars/main.yml
 
@@ -23,9 +23,7 @@
       when: rpm_check.rc != 0
 
     - name: Install Mission Control through rpm
-      command: "rpm -ihv {{mc_archive}}"
-      become: true
-      become_method: sudo
+      command: "sudo rpm -ihv {{mc_archive}}"
       # rpm_check.rc is 0 if installed
       when: rpm_check.rc != 0
 
