@@ -1,0 +1,23 @@
+---
+# This playbook deploys JFrog Artifactory!
+- name: Check of Artifactory is installed
+  command: "rpm -q jfrog-artifactory-pro"
+  # Always run in normal mode
+  check_mode: no
+  register: rpm_check
+  # Force the annoying change message to go away
+  changed_when: no
+  failed_when: rpm_check.rc > 1
+
+- name: Download JFrog Mission Control
+  command: "wget -q -O {{artifactory_archive}} {{download_url}} creates={{artifactory_archive}}"
+  # Download JFrog Artifactory if not installed yet
+  when: rpm_check.rc != 0
+
+- name: Install Artifactory through rpm
+  command: "sudo rpm -ihv {{artifactory_archive}}"
+  # rpm_check.rc is 0 if installed
+  when: rpm_check.rc != 0
+
+- name: Clean up
+  file: state=absent path={{artifactory_archive}}
