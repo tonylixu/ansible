@@ -3,7 +3,7 @@
 #Default values
 export ARTIFACTORY_HOME=/var/opt/jfrog/artifactory
 export ARTIFACTORY_USER=artifactory
-#export JAVA_HOME=/opt/java/1.8.0
+export JAVA_HOME={{ artifactory_java_home }}
 
 export TOMCAT_HOME=/opt/jfrog/artifactory/tomcat
 export ARTIFACTORY_PID=/var/opt/jfrog/run/artifactory.pid
