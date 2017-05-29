@@ -2,6 +2,7 @@
 # This playbooks configures the default file for Artifactory
 
 - name: Artifactory | Config etc/default file
-  template: src=default.j2 dest=/var/opt/jfrog/artifactory/etc/default
+  template: src=./roles/artifactory/templates/default dest=/var/opt/jfrog/artifactory/etc/
+  # To do: notify: restart artifactory
   tags:
     - config-default

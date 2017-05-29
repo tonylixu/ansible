@@ -1,10 +1,16 @@
 ---
-# This Playbook will deploy and configure a Artifactory server
+# This playbook deploys a simple standalone Tomcat 7 server.
 
 - hosts: artifactory_servers
+  remote_user: user
+  become: yes
+  become_method: sudo
   roles:
-    - role: artifactory
+    - artifactory
 
 - hosts: artifactory_servers
+  remote_user: user
+  become: yes
+  become_method: sudo
   tasks:
     - include: roles/artifactory/tasks/default.yml

@@ -1,4 +1,4 @@
 # The site wide list of Artifactory servers
 
 [artifactory_servers]
-artifactory1
+10.0.0.1
