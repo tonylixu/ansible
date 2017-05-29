@@ -1,0 +1,10 @@
+---
+# This Playbook will deploy and configure a Artifactory server
+
+- hosts: artifactory_servers
+  roles:
+    - role: artifactory
+
+- hosts: artifactory_servers
+  tasks:
+    - include: roles/artifactory/tasks/default.yml
