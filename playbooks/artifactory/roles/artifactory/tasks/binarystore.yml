@@ -1,0 +1,58 @@
+---
+# This playbooks configures the default file for Artifactory
+
+- name: Artifactory | Create baseDataDir
+  file:
+    path: /u01/jfrog/artifactory/data
+    state: directory
+    mode: 0750
+    owner: artifactory
+    group: artifactory
+  tags:
+    - config-dev-binarystore
+
+- name: Artifactory | Create logs directory
+  file:
+    path: /u01/jfrog/artifactory/logs
+    state: directory
+    mode: 0750
+    owner: artifactory
+    group: artifactory
+  tags:
+    - config-dev-binarystore
+
+- name: Artifactory | Create backup directory
+  file:
+    path: /u01/jfrog/artifactory/backup
+    state: directory
+    mode: 0750
+    owner: artifactory
+    group: artifactory
+  tags:
+    - config-dev-binarystore
+
+- name: Artifactory | Create logs symlink
+  file:
+    src: /u01/jfrog/artifactory/logs
+    dest: /var/opt/jfrog/artifactory/logs
+    owner: artifactory
+    group: artifactory
+    state: link
+  tags:
+    - config-dev-binarystore
+
+- name: Artifactory | Create backup symlink
+  file:
+    src: /u01/jfrog/artifactory/backup
+    dest: /var/opt/jfrog/artifactory/backup
+    owner: artifactory
+    group: artifactory
+    state: link
+  tags:
+    - config-dev-binarystore
+
+- name: Artifactory | Config etc/binarystore file
+  template: src=./roles/artifactory/templates/binarystore-dev.xml dest=/var/opt/jfrog/artifactory/etc/binarystore.xml
+  # To do: notify: restart artifactory
+  tags:
+    - config-dev-binarystore
