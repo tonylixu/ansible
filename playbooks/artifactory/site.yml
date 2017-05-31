@@ -8,9 +8,16 @@
   tasks:
     - include: roles/artifactory/tasks/install.yml
 
-- hosts: artifactory_servers
+- hosts: artifactory_dev_servers
   remote_user: user
   become: yes
   become_method: sudo
   tasks:
     - include: roles/artifactory/tasks/default.yml
+
+- hosts: artifactory_dev_server1
+  remote_user: user
+  become: yes
+  become_method: sudo
+  tasks:
+    - include: roles/artifactory/tasks/binarystore.yml

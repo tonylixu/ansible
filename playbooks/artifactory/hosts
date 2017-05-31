@@ -2,3 +2,12 @@
 
 [artifactory_servers]
 10.0.0.1
+
+[artifactory_dev_servers]
+10.0.0.1
+
+[artifactory_dev_server1]
+10.0.0.1
+
+[artifactory_prod_servers]
+10.0.0.1
