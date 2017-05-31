@@ -1,0 +1,8 @@
+---
+# This playbooks configures the default file for Artifactory
+
+- name: Artifactory | Config etc/default file
+  template: src=./roles/artifactory/templates/binary-store-dev.xml dest=/var/opt/jfrog/artifactory/etc/binarystore.yml
+  # To do: notify: restart artifactory
+  tags:
+    - config-dev-binarystore
