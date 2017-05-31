@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Artifactory is a binaries repository manager.
+  ~ Copyright (C) 2016 JFrog Ltd.
+  ~
+  ~ Artifactory is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Artifactory is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with Artifactory.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<!--
+    This file configures Artifactory's binary provider
+-->
+
+<!--
+  ~ TAKE CARE! Making changes to this file may result in losing binaries stored in Artifactory!
+  ~ If you are not sure of what you are doing, please contact JFrog Support for assistance.
+  -->
+
+<!--
+  ~ baseDataDir - The root directory where Artifactory should store data files.
+  ~ fileStoreDir - The root folder of binaries for the filestore. If the value specified
+                   starts with a forward slash (/) the value is considered the fully qualified
+                   path to the filestore folder. Otherwise, it is considered relative to the baseDataDir.
+  ~ tempDir - A temporary folder under baseDataDir into which files are written for internal use by Artifactory.
+              This must be on the same disk as the fileStoreDir.
+  -->
+
+<config version="1">
+    <chain template="file-system"/>
+    <provider id="file-system" type="file-system">
+        <baseDataDir>/u01/jfrog/artifactory/data</baseDataDir>
+        <fileStoreDir>filestore</fileStoreDir>
+        <tempDir>temp</tempDir>
+    </provider>
+</config>
