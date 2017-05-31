@@ -3,3 +3,4 @@ download_folder: /tmp
 artifactory_archive: "{{download_folder}}/jfrog-artifactory-pro-5.3.1.rpm"
 artifactory_version: 5.3.1
 artifactory_java_home: "/usr/java/jdk1.8.0_131"
+artifactory_dev_binarystore_basedatadir: "/u01/jfrog/artifactory/data"
