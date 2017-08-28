@@ -1,9 +1,10 @@
 ---
 # This playbook installs python2-pip on CentOS 7 or RedHat 7
 
-- host: target_hosts
-  vars_files:
-    - vars/main.yml
+- hosts: target_hosts
+  remote_user: user
+  become: yes
+  become_method: sudo
   
   tasks:
     - name: Check if pip is installed
