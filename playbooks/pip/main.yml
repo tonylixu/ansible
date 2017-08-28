@@ -1,0 +1,22 @@
+---
+# This playbook installs python2-pip on CentOS 7 or RedHat 7
+
+- host: target_hosts
+  vars_files:
+    - vars/main.yml
+  
+  tasks:
+    - name: Check if pip is installed
+      command: "pip -V"
+      # Always run in normal mode
+      check_mode: no
+      register: rpm_check
+      # Force the annoying change message to go away
+      changed_when: no
+      ignore_errors: yes
+    
+    - name: Install pip
+      # Install pip from epel repo
+      yum: name=python-pip2 state=present
+      tags: pip
+      when: rpm_check.rc != 0

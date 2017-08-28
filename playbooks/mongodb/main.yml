@@ -26,7 +26,3 @@
       yum: name=mongodb-org state=present
       tags: mongodb
       when: rpm_check.rc != 0
-
-
-
-
