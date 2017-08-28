@@ -2,6 +2,9 @@
 # # This playbook deploys mongodb to CentOS 7 /Red Hat 7
 # Reference: https://github.com/Vinelab/ansible-docker.git
 - hosts: docker-host
+  remote_user: user
+  become: yes
+  become_method: sudo
   vars_files:
     - vars/main.yml
 
