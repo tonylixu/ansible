@@ -1,5 +1,5 @@
 ---
-# # This playbook deploys mongodb to CentOS 7 /Red Hat 7
+# This playbook deploys mongodb to CentOS 7 /Red Hat 7
 # Reference: https://github.com/Vinelab/ansible-docker.git
 - hosts: docker-host
   remote_user: user
@@ -32,12 +32,25 @@
       tags: docker
       when: rpm_check.rc != 0
 
+    - name: Install device-mapper-persistent-data
+      yum: name=device-mapper-persistent-data state=present
+      tags: docker
+      when: rpm_check.rc != 0
+
+    - name: Install lvm2
+      yum: name=lvm2 state=present
+      tags: docker
+      when: rpm_check.rc != 0
+
     - name: Set up the Docker CE repository
       command: "{{ item }}"
       with_items:
         - "yum-config-manager --add-repo {{docker_repo}}"
         - 'yum makecache fast'
       when: rpm_check.rc != 0
+
+    # This container-selinux needs to be manual installed from the following command
+    # yum install -y ftp://195.220.108.108/linux/centos/7.3.1611/extras/x86_64/Packages/container-selinux-2.10-2.el7.noarch.rpm
 
     - name: Install latest version of docker CE
       yum: name=docker-ce state=present
