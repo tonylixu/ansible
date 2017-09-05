@@ -3,6 +3,9 @@
 # Source https://github.com/geerlingguy/ansible-role-nodejs/blob/master/tasks/setup-RedHat.yml
 
 - hosts: nodejs_host
+  remote_user: user
+  become: yes
+  become_method: sudo
   vars_files:
     - vars/main.yml
 
