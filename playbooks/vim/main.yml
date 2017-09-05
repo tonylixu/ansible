@@ -1,0 +1,23 @@
+---
+# This playbook installs vim on CentOS 7 or RedHat 7
+
+- hosts: target_hosts
+  remote_user: user
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: Check if vim is installed
+      command: "vim --version"
+      # Always run in normal mode
+      check_mode: no
+      register: rpm_check
+      # Force the annoying change message to go away
+      changed_when: no
+      ignore_errors: yes
+    
+    - name: Install vim
+      # Install pip from epel repo
+      yum: name=vim state=present
+      tags: vim
+      when: rpm_check.rc != 0
