@@ -18,7 +18,7 @@
     register: rpm_check
     # Force the annoying change message to go away
     changed_when: no
-    failed_when: rpm_check.rc > 1
+    ignore_errors: yes
 
   - name: Download Java
     command: "wget -q -O {{java_archive}} {{download_url}} creates={{java_archive}}"
