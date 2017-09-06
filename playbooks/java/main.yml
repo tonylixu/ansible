@@ -7,8 +7,8 @@
     download_url: java_download_url
     download_folder: /opt
     install_folder: /usr/lib/jvm
-    java_name: "{{install_folder}}/jdk1.8.0_131"
-    java_archive: "{{download_folder}}/jdk-8u131-linux-x64.tar.gz"
+    java_name: "{{install_folder}}/jdk1.8.0_144"
+    java_archive: "{{download_folder}}/jdk-8u144-linux-x64.tar.gz"
 
   tasks:
   - name: Check if Java is installed
@@ -19,6 +19,10 @@
     # Force the annoying change message to go away
     changed_when: no
     ignore_errors: yes
+
+  - name: Create "/usr/lib/jvm" folder
+    command: "mkdir /usr/lib/jvm"
+    when: rpm_check.rc != 0
 
   - name: Download Java
     command: "wget -q -O {{java_archive}} {{download_url}} creates={{java_archive}}"
