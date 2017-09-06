@@ -1,0 +1,49 @@
+---
+# This playbook installs maven
+- hosts: target_host
+  remote_user: user
+  become: yes
+  become_method: sudo
+  vars:
+    download_url: maven_download_url
+    download_folder: /opt
+    install_folder: /opt/maven
+    maven_name: "{{install_folder}}/apache-maven-{{maven_version}}"
+    maven_archive: "{{download_folder}}/apache-maven-{{maven_version}}-bin.tar.gz"
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+  - name: Check if Maven is installed
+    command: "mvn -version"
+    # Alwasy run in normal mode
+    check_mode: no
+    register: rpm_check
+    # Force the annoying change message to go away
+    changed_when: no
+    ignore_errors: yes
+
+  - name: Create "/opt/maven" folder
+    command: "mkdir /opt/maven"
+    when: rpm_check.rc != 0
+
+  - name: Download maven
+    command: "wget -q -O {{maven_archive}} {{download_url}} creates={{maven_archive}}"
+    when: rpm_check.rc != 0
+
+  - name: Unpack archive
+    command: "tar -xzf {{maven_archive}} -C {{install_folder}}"
+    when: rpm_check.rc != 0
+
+  - name: Fix ownership
+    file: state=directory path={{maven_name}} owner=root group=root recurse=yes
+    when: rpm_check.rc != 0
+
+  - name: Clean up
+    file: state=absent path={{maven_archive}}
+    when: rpm_check.rc != 0
+
+  - name: Add maven into profiles
+    template: "src=maven.sh dest=/etc/profile.d/maven.sh"
+    tags: maven
+    when: rpm_check.rc != 0
