@@ -1,0 +1,22 @@
+---
+# This playbook installs git on CentOS 7 or RedHat 7
+
+- hosts: target_hosts
+  remote_user: user
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: Check if git is installed
+      command: "git --version"
+      # Always run in normal mode
+      check_mode: no
+      register: rpm_check
+      # Force the annoying change message to go away
+      changed_when: no
+      ignore_errors: yes
+    
+    - name: Install git
+      yum: name=git state=present
+      tags: git
+      when: rpm_check.rc != 0
