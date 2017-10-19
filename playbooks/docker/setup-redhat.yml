@@ -45,7 +45,7 @@
     - name: Set up the Docker CE repository
       command: "{{ item }}"
       with_items:
-        - "yum-config-manager --add-repo {{docker_repo}}"
+        - "yum-config-manager --add-repo {{redhat_docker_repo}}"
         - 'yum makecache fast'
       when: rpm_check.rc != 0
 
