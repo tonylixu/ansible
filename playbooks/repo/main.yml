@@ -1,0 +1,9 @@
+---
+# This playbook installs Android repo command on CentOS 7 or RedHat 7
+# Repo is a tool that makes it easier to work with Git in the context of Android. 
+
+- hosts: target_hosts
+  remote_user: user
+  become: yes
+  become_method: sudo
+      
