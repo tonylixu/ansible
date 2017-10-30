@@ -1,3 +1,8 @@
 ---
+- hosts: target_host
+  remote_user: user
+  become: yes
+  become_method: sudo
+  
 - include: pkg-redhat.yml
   when: ansible_os_family == "RedHat"
