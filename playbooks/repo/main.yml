@@ -6,4 +6,13 @@
   remote_user: user
   become: yes
   become_method: sudo
-      
+
+  tasks:
+      - name: Check if repo is installed
+        command: "which repo"
+        # Always run in normal mode
+        check_mode: no
+        register: rpm_check
+        # Force the annoying change message to go away
+        changed_when: no
+        ignore_errors: yes

@@ -1,0 +1,16 @@
+---
+- hosts: target_host
+  remote_user: user
+  become: yes
+  become_method: sudo
+  vars_files:
+    - vars/main.yml
+  
+  tasks:
+    - name: Copy repo file into place
+      template: src=../templates/datadog.repo.j2 dest=/etc/yum.repos.d/datadog.repo owner=root group=root mode=0644
+
+    - name: Install latest datadog-agent package
+      yum:
+        name: datadog-agent
+        state: latest
