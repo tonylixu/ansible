@@ -26,7 +26,6 @@
         - container-selinux
         - docker-selinux
         - docker-engine
-
     - name: Install yum-utils
       yum: name=yum-utils state=present
       tags: docker
@@ -49,8 +48,14 @@
         - 'yum makecache fast'
       when: rpm_check.rc != 0
 
+    - name: Install policycoreutils-python
+      yum: name=policycoreutils-python state=present
+      tags: docker
+      when: rpm_check.rc != 0
+      
     # This container-selinux needs to be manual installed from the following command
-    # yum install -y ftp://195.220.108.108/linux/centos/7.3.1611/extras/x86_64/Packages/container-selinux-2.10-2.el7.noarch.rpm
+    # You can download it from 
+    # ftp://ftp.icm.edu.pl/vol/rzm6/linux-centos-vault/7.3.1611/extras/x86_64/Packages
 
     - name: Install latest version of docker CE
       yum: name=docker-ce state=present
