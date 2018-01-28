@@ -26,3 +26,22 @@ To Edit an encrypted file in place, use the `ansible-valut edit` command. This c
 ```bash
 $ ansible-vault edit foo.yml
 ```
+
+### Rekeying Encrypted Files
+Should you want to change your password on vault-encrypted file or files, you could:
+```bash
+$ ansible-vault rekey foo.yml bar.yml baz.yml
+```
+This command can rekey multiple data files at once and will ask for the original password and also the new password.
+
+### Encrypting Unencrypted Files
+If you have existing files that you wish to encrypt, use the `ansible-vault` encrypt command. This command can operate on multiple files at once:
+```bash
+$ ansible-vault encrypt foo.yml bar.yml baz.yml
+```
+
+### Decrypting Encrypted Files
+If you have existing files that you no longer want to keep encrypted, you can permanently decrypt them by running the `ansible-vault decrypt` command. This command will save them unencrypted to the disk, so be sure you do not want ansible-vault edit instead:
+```bash
+$ ansible-vault decrypt foo.yml bar.yml baz.yml
+```
