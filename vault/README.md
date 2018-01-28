@@ -45,3 +45,25 @@ If you have existing files that you no longer want to keep encrypted, you can pe
 ```bash
 $ ansible-vault decrypt foo.yml bar.yml baz.yml
 ```
+
+### Viewing Encrypted Files
+You can use `ansible-vault view` command to view encrypted files:
+```bash
+$ ansible-vault view foo.yml bar.yml baz.yml
+```
+
+### Use encrypt_string to create encrypted variables to embed in yaml
+You can use the `ansible-vault encrypt_string` command to encrypt a string into a format that can be included in playbook YAML files.
+For example:
+```bash
+$ ansible-vault encrypt_string --vault-id a_password_file 'foobar' --name 'the_secret'
+
+Result:
+the_secret: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      62313365396662343061393464336163383764373764613633653634306231386433626436623361
+      6134333665353966363534333632666535333761666131620a663537646436643839616531643561
+      63396265333966386166373632626539326166353965363262633030333630313338646335303630
+      3438626666666137650a353638643435666633633964366338633066623234616432373231333331
+      6564
+```
