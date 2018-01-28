@@ -10,3 +10,19 @@ Basically any structured data file used by Ansible can be encrypted. For example
 Ansible tasks, handlers, and so on are also data so these can be encrypted with vault as well. To hide the names of variables that you're using you can encrypt the task files as well.
 
 The vault feature can also encrypt arbitrary files, even binary files. If a vault-encrypted file is given as the `src` argument to the `copy`, `template`, `unarchive`, `script` or `assemble` modules, the file will be placed at the destination on the target host decrypted.
+
+
+### Creating Encrypted Files
+To create a new encrypted data file:
+```bash
+$ ansible-vault create foo.yml
+```
+First you will be prompted for a password. The password used with vault currently must be the same for all files you wish to use together at the same time.
+
+After providing a password, the tool will launch whatever editor you have defined with $EDITOR, and defaults to vi (before 2.1 the default was vim). Once you are done with the editor session, the file will be saved as encrypted data. The default cipher is AES.
+
+### Editing Encrypted Files
+To Edit an encrypted file in place, use the `ansible-valut edit` command. This command will decrupt the file to a temp file and allow you to edit, saving it back when done and remove the temp file:
+```bash
+$ ansible-vault edit foo.yml
+```
