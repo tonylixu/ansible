@@ -22,3 +22,38 @@ loop_control adds the ability to loop over the set of tasks in one shot. Ansible
     - c
 ```
 In this exmaple, in the output messages, `item` will be `1, 2, 3`, and the `outer_item` will be `a, b, c`.
+
+### "label" directive:
+When using complex data structures for looping the display might get a bit too “busy”, this is where the label directive comes to help:
+```yaml
+- name: create servers
+  digital_ocean:
+    name: "{{ item.name }}"
+    state: present
+  loop:
+    - name: server1
+      disks: 3gb
+      ram: 15Gb
+      network:
+        nic01: 100Gb
+        nic02: 10Gb
+        ...
+  loop_control:
+    label: "{{ item.name }}"
+```
+This will now display just the label field instead of the whole structure per item, it defaults to {{ item }} to display things as usual.
+
+### "pause" directive:
+Another option to loop control is pause, which allows you to control the time (in seconds) between execution of items in a task loop.
+```yaml
+# main.yml
+- name: create servers, pause 3s before creating next
+  digital_ocean:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - server1
+    - server2
+  loop_control:
+    pause: 3
+```
