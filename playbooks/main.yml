@@ -1,0 +1,5 @@
+---
+- hosts: openvpn
+  # strategy: debug
+  roles:
+    - { role: aws-docker, tags: [ 'aws-docker' ] }
